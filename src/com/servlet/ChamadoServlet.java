@@ -1,6 +1,7 @@
 package com.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dao.ChamadoDAO;
+import com.dao.InstrucaoDAO;
 import com.modelodados.Chamado;
+import com.modelodados.Instrucao;
 
 /**
  * Servlet implementation class Chamado
@@ -32,7 +35,6 @@ public class ChamadoServlet extends HttpServlet {
 	@Override
 	protected void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-
 		if ("I".equals(acao) || "A".equals(acao)) {
 			int id = Integer.parseInt(request.getParameter("edId"));
 			String titulo = request.getParameter("edTitulo");
@@ -56,15 +58,25 @@ public class ChamadoServlet extends HttpServlet {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		} else
+			response.sendRedirect("index.jsp");
+		} else {
 			if ("D".equals(acao)) {
 				int codigo = Integer.parseInt(request.getParameter("edId"));
 				ChamadoDAO dao = new ChamadoDAO();
 
 				dao.excluir(codigo);
+				response.sendRedirect("index.jsp");
+			} else {
+				if ("Instrucao".equals(acao)){
+					InstrucaoDAO dao = new InstrucaoDAO();
+					int chamadoid = Integer.parseInt(request.getParameter("ChamadoID"));
+					int instrucaoid = Integer.parseInt(request.getParameter("ChamadoID"));
+					Instrucao instrucao = dao.obter(chamadoid, instrucaoid);
+					PrintWriter writer = response.getWriter();
+					writer.print(instrucao.getText());
+					writer.flush();
+				}
 			}
-
-		response.sendRedirect("index.jsp");
+		}
 	}
-
 }

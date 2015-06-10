@@ -1,13 +1,19 @@
 package com.modelodados;
 
 import java.util.Date;
+import java.util.List;
 
+/**
+ * @author Paulo Weber
+ *
+ */
 public class Chamado {
 
 	private int		id;
 	private String	titulo;
 	private String	descricao;
 	private Date	dataCriacao;
+	private List<Instrucao> instrucoes;
 
 	public int getId() {
 		return id;
@@ -39,5 +45,13 @@ public class Chamado {
 
 	public void setDataCriacao(final Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
+	}
+
+	public List<Instrucao> getInstrucoes() {
+		return instrucoes;
+	}
+
+	public void addInstrucao(final Instrucao instrucao){
+		instrucoes.add(instrucao);
 	}
 }

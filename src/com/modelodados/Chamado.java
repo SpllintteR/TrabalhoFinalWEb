@@ -1,5 +1,6 @@
 package com.modelodados;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Chamado {
 	private String	titulo;
 	private String	descricao;
 	private Date	dataCriacao;
-	private List<Instrucao> instrucoes;
+	private List<Instrucao> instrucoes = new ArrayList<>();
 
 	public int getId() {
 		return id;
@@ -53,5 +54,9 @@ public class Chamado {
 
 	public void addInstrucao(final Instrucao instrucao){
 		instrucoes.add(instrucao);
+	}
+
+	public void setInstrucoes(final List obter) {
+		instrucoes = obter;
 	}
 }

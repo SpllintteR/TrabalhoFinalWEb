@@ -75,6 +75,14 @@ public class ChamadoServlet extends HttpServlet {
 					PrintWriter writer = response.getWriter();
 					writer.print(instrucao.getText());
 					writer.flush();
+				}else{
+					if("novaInstrucao".equals(acao)){
+						InstrucaoDAO dao = new InstrucaoDAO();
+						Instrucao instrucao = new Instrucao();
+						int chamadoId = Integer.parseInt(request.getParameter("ChamadoID"));
+						instrucao.setText(request.getParameter("edInstrucao"));
+						dao.inserir(chamadoId, instrucao);
+					}
 				}
 			}
 		}

@@ -95,7 +95,6 @@ public class ChamadoDAO {
 				chamado.setTitulo(rs.getString("titulo"));
 				chamado.setDescricao(rs.getString("descricao"));
 				chamado.setDataCriacao(rs.getDate("dataCriacao"));
-				chamado.setInstrucoes(new InstrucaoDAO().obter(id));
 				return chamado;
 			}
 			return null;

@@ -33,14 +33,16 @@
 			<td><%= chamado.getTitulo() %></td>
 			<td><%= chamado.getDescricao() %></td>
 			<td><%= sdf.format(chamado.getDataCriacao()) %></td>
-			<td><a
-				href="cadchamado.jsp?acao=A&edId=<%= chamado.getId()%>">Alterar</a>
-				<a href="Chamado?acao=D&edId=<%= chamado.getId()%>">Excluir</a></td>
+			<td>
+				<a href="Chamado?acao=DownloadAnexo&edId=<%= chamado.getId()%>">Download Anexo</a>
+				<a href="cadchamado.jsp?acao=A&edId=<%= chamado.getId()%>">Alterar</a>
+				<a href="Chamado?acao=D&edId=<%= chamado.getId()%>">Excluir</a>
+			</td>
 		</tr>
 		<%
 	}
 %>
 	</table>
-	<a href="cadchamado.jsp">Inserir chamado</a>
+	<a href="cadchamado.jsp?acao=I">Inserir chamado</a>
 </body>
 </html>

@@ -1,8 +1,6 @@
 package com.modelodados;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Paulo Weber
@@ -14,7 +12,7 @@ public class Chamado {
 	private String	titulo;
 	private String	descricao;
 	private Date	dataCriacao;
-	private List<Instrucao> instrucoes = new ArrayList<>();
+	private String anexo;
 
 	public int getId() {
 		return id;
@@ -48,15 +46,11 @@ public class Chamado {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public List<Instrucao> getInstrucoes() {
-		return instrucoes;
+	public String getAnexo() {
+		return getId() + "_" + "seta.png";
 	}
 
-	public void addInstrucao(final Instrucao instrucao){
-		instrucoes.add(instrucao);
-	}
-
-	public void setInstrucoes(final List obter) {
-		instrucoes = obter;
+	public void setAnexo(final String anexo) {
+		this.anexo = anexo;
 	}
 }

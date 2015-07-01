@@ -10,29 +10,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Cadastro de Chamados</title>
 </head>
-<script>
-	function updateInstrucao(val, id){
-		var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById("txtHint").setAttribute("text", xmlhttp.responseText);
-            }
-        }
-        xmlhttp.open("GET", "Chamado?acao=Instrucao&ChamadoID=" + id + "&InstrucaoID="+ val, true);
-        xmlhttp.send();
-	}
-	
-	function novaInstrucao(val, id, chamadoID){
-		var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById("txtHint").setAttribute("text", xmlhttp.responseText);
-            }
-        }
-        xmlhttp.open("GET", "Chamado?acao=novaInstrucao&ChamadoID=" + chamadoID + "&InstrucaoID="+ id + "&text=" + val, true);
-        xmlhttp.send();
-	}
-</script>
 <body>
 	<%
 	String acao = request.getParameter("acao");
@@ -51,7 +28,7 @@
 	}
 %>
 
-	<form action="Chamado">
+	<form action="Chamado" id="form1" enctype="multipart/form-data">
 		Id: <input type="text" name="edId" value="<%= chamado.getId() %>" />
 			<br />
 
@@ -64,23 +41,12 @@
 		Data de Criação: <input type="text" name="edDataCriacao"
 			value="<%= chamado.getDataCriacao().toLocaleString() %>" />
 			<br />
-			
-		Instruções:
-			<input type="text" name="edInstrucao" value="<%= chamado.getInstrucoes().size() > 0 ? chamado.getInstrucoes().get(instrucaoAtual).getText() : "" %>"/>
-			<select id="comboInstrucoes" onchange="updateInstrucao(this.value)">  
-            	<%for (int i = 0; i < chamado.getInstrucoes().size(); i++) {%>  
-                <option value = "<%=i%>"><%=i+1%></option>  
-                <%}%>  
-        	</select>
-        	<button type="button" onclick="novaInstrucao(edInstrucao.value, <%= chamado.getInstrucoes().size() %>,<%= chamado.getId() %>)"> Adicionar Instrução </button>  
+			<input type="submit" value="Anexar Arquivo"/>
+			<% if (alterar){%>
+				<a href="anexararquivo.jsp?edId=<%= chamado.getId()%>">Alterar</a>
+			<% }%>
 			<br />
 			<input type="submit" value="Gravar" /><br /> <input type="hidden" name="acao" value="<%= acao %>" />
-		}
 	</form>
-	$('select').change(function () {
-  		if ($(this).val() === 'New') {
-    	// Handle new option
-  	}
-});
 </body>
 </html>

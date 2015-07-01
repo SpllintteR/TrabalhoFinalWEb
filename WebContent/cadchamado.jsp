@@ -28,7 +28,7 @@
 	}
 %>
 
-	<form action="Chamado" id="form1" enctype="multipart/form-data">
+	<form action="Chamado">
 		Id: <input type="text" name="edId" value="<%= chamado.getId() %>" />
 			<br />
 
@@ -41,9 +41,8 @@
 		Data de Criação: <input type="text" name="edDataCriacao"
 			value="<%= chamado.getDataCriacao().toLocaleString() %>" />
 			<br />
-			<input type="submit" value="Anexar Arquivo"/>
 			<% if (alterar){%>
-				<a href="anexararquivo.jsp?edId=<%= chamado.getId()%>">Alterar</a>
+				<a href="anexararquivo.jsp?edId=<%= chamado.getId()%>">Anexar Arquivo</a>
 			<% }%>
 			<br />
 			<input type="submit" value="Gravar" /><br /> <input type="hidden" name="acao" value="<%= acao %>" />

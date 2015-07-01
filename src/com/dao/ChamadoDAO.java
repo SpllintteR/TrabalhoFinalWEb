@@ -53,6 +53,20 @@ public class ChamadoDAO {
 			cmd.setString(2, chamado.getDescricao());
 			cmd.setInt(3, chamado.getId());
 			cmd.executeUpdate();
+
+			sql = "DELETE from test.anexos WHERE chamadoId=?";
+			cmd = con.prepareStatement(sql);
+			cmd.setInt(1, chamado.getId());
+			cmd.executeUpdate();
+
+			sql = "INSERT into test.anexos values(?,?,?)";
+			cmd = con.prepareStatement(sql);
+			for(int i = 0; i < chamado.getAnexos().size(); i++){
+				cmd.setInt(1, chamado.getId());
+				cmd.setInt(2, i);
+				cmd.setString(3, chamado.getAnexos().get(i));
+				cmd.executeUpdate();
+			}
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,15 +103,24 @@ public class ChamadoDAO {
 			cmd.setInt(1, id);
 			ResultSet rs = cmd.executeQuery();
 
+			Chamado chamado = null;
 			if (rs.next()) {
-				Chamado chamado = new Chamado();
+				chamado = new Chamado();
 				chamado.setId(id);
 				chamado.setTitulo(rs.getString("titulo"));
 				chamado.setDescricao(rs.getString("descricao"));
 				chamado.setDataCriacao(rs.getDate("dataCriacao"));
-				return chamado;
 			}
-			return null;
+			if(chamado != null){
+				sql = "SELECT anexoNome FROM test.Anexos WHERE chamadoId=? order by anexoId";
+				cmd = con.prepareStatement(sql);
+				cmd.setInt(1, id);
+				rs = cmd.executeQuery();
+				if (rs.next()) {
+					chamado.getAnexos().add(rs.getString("anexoNome"));
+				}
+			}
+			return chamado;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
